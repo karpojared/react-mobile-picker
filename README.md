@@ -14,13 +14,13 @@ npm install react-mobile-picker2 --save
 ### ES6
 
 ```javascript
-import Picker from 'react-mobile-picker';
+import Picker from 'react-mobile-picker2';
 ```
 
 ### CommonJS
 
 ```javascript
-var Picker = require('react-mobile-picker');
+var Picker = require('react-mobile-picker2');
 ```
 
 ## Props
@@ -67,7 +67,7 @@ valueGroups = {
 
 ```javascript
 import React, {Component} from 'react';
-import Picker from 'react-mobile-picker';
+import Picker from 'react-mobile-picker2';
 
 class App extends Component {
   constructor(props) {
