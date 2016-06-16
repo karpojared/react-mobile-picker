@@ -10,11 +10,26 @@ export default class NamePicker extends Component {
         firstName: 'Micheal',
         secondName: 'Jordan'
       }, 
-      optionGroups: {
-        title: ['Mr.', 'Mrs.', 'Ms.', 'Dr.'],
-        firstName: ['John', 'Micheal', 'Elizabeth'],
-        secondName: ['Lennon', 'Jackson', 'Jordan', 'Legend', 'Taylor']
-      }
+      optionGroups: [
+        {
+          name: 'title',
+          text: ['Mr.(先生)', 'Mrs.(夫人)', 'Ms.(小姐)', 'Dr.'],
+          value: ['Mr.', 'Mrs.', 'Ms.', 'Dr.'],
+          label: '',
+        },
+        {
+          name: 'firstName',
+          text: ['John(约翰)', 'Micheal(麦克)', 'Elizabeth(伊丽莎白)'],
+          value: ['John', 'Micheal', 'Elizabeth'],
+          label: '',
+        },
+        {
+          name: 'secondName',
+          text: ['Lennon(列侬)', 'Jackson(杰克逊)', 'Jordan(乔丹)', 'Legend(莱亨德)', 'Taylor(泰勒)'],
+          value: ['Lennon', 'Jackson', 'Jordan', 'Legend', 'Taylor'],
+          label: '',
+        }
+      ]
     };
   }
 

@@ -3,7 +3,7 @@ import './style.less';
 
 class PickerColumn extends Component {
   static propTypes = {
-    options: PropTypes.array.isRequired,
+    options: PropTypes.object.isRequired,
     name: PropTypes.string.isRequired,
     value: PropTypes.any.isRequired,
     itemHeight: PropTypes.number.isRequired,
@@ -30,16 +30,16 @@ class PickerColumn extends Component {
 
   computeTranslate = (props) => {
     const {options, value, itemHeight, columnHeight} = props;
-    let selectedIndex = options.indexOf(value);
+    let selectedIndex = options.value.indexOf(value);
     if (selectedIndex < 0) {
       // throw new ReferenceError();
       console.warn('Warning: "' + this.props.name+ '" doesn\'t contain an option of "' + value + '".');
-      this.onValueSelected(options[0]);
+      this.onValueSelected(options.value[0]);
       selectedIndex = 0;
     }
     return {
       scrollerTranslate: columnHeight / 2 - itemHeight / 2 - selectedIndex * itemHeight,
-      minTranslate: columnHeight / 2 - itemHeight * options.length + itemHeight / 2,
+      minTranslate: columnHeight / 2 - itemHeight * options.value.length + itemHeight / 2,
       maxTranslate: columnHeight / 2 - itemHeight / 2
     };
   };
@@ -94,11 +94,11 @@ class PickerColumn extends Component {
       if (scrollerTranslate > maxTranslate) {
         activeIndex = 0;
       } else if (scrollerTranslate < minTranslate) {
-        activeIndex = options.length - 1;
+        activeIndex = options.value.length - 1;
       } else {
         activeIndex = - Math.floor((scrollerTranslate - maxTranslate) / itemHeight);
       }
-      this.onValueSelected(options[activeIndex]);
+      this.onValueSelected(options.value[activeIndex]);
     }, 0);
   };
 
@@ -122,18 +122,19 @@ class PickerColumn extends Component {
 
   renderItems() {
     const {options, itemHeight, value} = this.props;
-    return options.map((option, index) => {
+    return options.text.map((optionText, index) => {
+      let optionValue = options.value[index];
       const style = {
         height: itemHeight + 'px',
         lineHeight: itemHeight + 'px'
       };
-      const className = `picker-item${option === value ? ' picker-item-selected' : ''}`;
+      const className = `picker-item${optionValue === value ? ' picker-item-selected' : ''}`;
       return (
         <div
           key={index}
           className={className}
           style={style}
-          onClick={() => this.handleItemClick(option)}>{option}</div>
+          onClick={() => this.handleItemClick(optionValue)}>{optionText}{options.label}</div>
       );
     });
   }
@@ -187,13 +188,14 @@ export default class Picker extends Component {
       marginTop: -(itemHeight / 2)
     };
     const columnNodes = [];
-    for (let name in optionGroups) {
+    for (let i = 0; i < optionGroups.length; i++) {
+      let obj = optionGroups[i];
       columnNodes.push(
         <PickerColumn
-          key={name}
-          name={name}
-          options={optionGroups[name]}
-          value={valueGroups[name]}
+          key={i}
+          name={obj.name}
+          options={obj}
+          value={valueGroups[obj.name]}
           itemHeight={itemHeight}
           columnHeight={height}
           onChange={onChange} />

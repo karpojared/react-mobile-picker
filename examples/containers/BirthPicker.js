@@ -17,13 +17,49 @@ export default class BirthPicker extends Component {
       valueGroups: {
         year: '1989',
         month: '08',
-        day: '12'
+        day: '12',
+        hour: '12',
+        minute: '06',
+        second: '56',
       },
-      optionGroups: {
-        year: generateNumberArray(1970, 2015),
-        month: generateNumberArray(1, 12),
-        day: generateNumberArray(1, 31)
-      }
+      optionGroups: [
+        {
+          name: 'year',
+          text: generateNumberArray(1970, 2015),
+          value: generateNumberArray(1970, 2015),
+          label: '年',
+        },
+        {
+          name: 'month',
+          text: generateNumberArray(1, 12),
+          value: generateNumberArray(1, 12),
+          label: '月',
+        },
+        {
+          name: 'day',
+          text: generateNumberArray(1, 31),
+          value: generateNumberArray(1, 31),
+          label: '日',
+        },
+        {
+          name: 'hour',
+          text: generateNumberArray(0, 23),
+          value: generateNumberArray(0, 23),
+          label: '时',
+        },
+        {
+          name: 'minute',
+          text: generateNumberArray(0, 59),
+          value: generateNumberArray(0, 59),
+          label: '分',
+        },
+        {
+          name: 'second',
+          text: generateNumberArray(0, 59),
+          value: generateNumberArray(0, 59),
+          label: '秒',
+        }
+      ]
     };
   }
 
@@ -37,34 +73,49 @@ export default class BirthPicker extends Component {
       };
       if (name === 'year' && valueGroups.month === '02') {
         if (parseInt(value) % 4 === 0) {
-          nextState.optionGroups = {
-            ...optionGroups,
-            day: generateNumberArray(1, 29)
-          };
+          optionGroups.splice(2, 1, {
+            name: 'day',
+            text: generateNumberArray(1, 29),
+            value: generateNumberArray(1, 29),
+            label: '日',
+          });
+          nextState.optionGroups = optionGroups;
         } else {
-          nextState.optionGroups = {
-            ...optionGroups,
-            day: generateNumberArray(1, 28)
-          };
+          optionGroups.splice(2, 1, {
+            name: 'day',
+            text: generateNumberArray(1, 28),
+            value: generateNumberArray(1, 28),
+            label: '日',
+          });
+          nextState.optionGroups = optionGroups;
         }
       } else if (name === 'month') {
         if (value === '02') {
-          nextState.optionGroups = {
-            ...optionGroups,
-            day: generateNumberArray(1, 28)
-          };
+          optionGroups.splice(2, 1, {
+            name: 'day',
+            text: generateNumberArray(1, 28),
+            value: generateNumberArray(1, 28),
+            label: '日',
+          });
+          nextState.optionGroups = optionGroups;
         } else if (['01', '03', '05', '07', '08', '10', '12'].indexOf(value) > -1 &&
           ['01', '03', '05', '07', '08', '10', '12'].indexOf(valueGroups.month) < 0) {
-          nextState.optionGroups = {
-            ...optionGroups,
-            day: generateNumberArray(1, 31)
-          };
+          optionGroups.splice(2, 1, {
+            name: 'day',
+            text: generateNumberArray(1, 31),
+            value: generateNumberArray(1, 31),
+            label: '日',
+          });
+          nextState.optionGroups = optionGroups;
         } else if (['01', '03', '05', '07', '08', '10', '12'].indexOf(value) < 0 &&
           ['01', '03', '05', '07', '08', '10', '12'].indexOf(valueGroups.month) > -1) {
-          nextState.optionGroups = {
-            ...optionGroups,
-            day: generateNumberArray(1, 30)
-          };
+          optionGroups.splice(2, 1, {
+            name: 'day',
+            text: generateNumberArray(1, 30),
+            value: generateNumberArray(1, 30),
+            label: '日',
+          });
+          nextState.optionGroups = optionGroups;
         }
       }
       return nextState;
@@ -94,7 +145,7 @@ export default class BirthPicker extends Component {
               <input
                 type="text"
                 className="weui_select"
-                value={valueGroups.year + '-' + valueGroups.month + '-' + valueGroups.day}
+                value={valueGroups.year + '-' + valueGroups.month + '-' + valueGroups.day+ ' ' + valueGroups.hour + ':' + valueGroups.minute + ':' + valueGroups.second}
                 readOnly
                 onClick={this.togglePicker} />
             </div>
