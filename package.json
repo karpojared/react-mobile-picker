@@ -1,6 +1,6 @@
 {
   "name": "react-mobile-picker2",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An iOS like select box component for React",
   "main": "lib/react-mobile-picker.js",
   "repository": {
@@ -8,8 +8,6 @@
     "url": "https://github.com/xfcf1/react-mobile-picker"
   },
   "dependencies": {
-    "react": "^0.14.3",
-    "react-dom": "~0.14.7"
   },
   "files": [
     "LICENCE",
@@ -28,6 +26,8 @@
     "mobile ui"
   ],
   "devDependencies": {
+    "react": "^0.14.3",
+    "react-dom": "~0.14.7",
     "autoprefixer-loader": "^3.1.0",
     "babel-core": "^6.3.17",
     "babel-eslint": "^4.1.6",
