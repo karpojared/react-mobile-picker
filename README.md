@@ -1,21 +1,12 @@
-# React Mobile Picker
+# React Mobile Picker2
 
-React Mobile Picker is a super simple component with no restriction, which means you can use it in any way you want.
-
-![screen-capture](./examples/screen-capture.gif)
-
-## Preview
-
-![qr](./examples/qr.png)
-
-Scan this Qr in you mobile.
-
-Or visit (in mobile or mobile simulator): [http://adcentury.github.io/react-mobile-picker](http://adcentury.github.io/react-mobile-picker)
+![screen-capture](./examples/1.png)
+![screen-capture](./examples/2.png)
 
 ## Install
 
 ```
-npm install react-mobile-picker --save
+npm install react-mobile-picker2 --save
 ```
 
 ## Usage
@@ -36,17 +27,43 @@ var Picker = require('react-mobile-picker');
 
 | Property name | Type | Default | Description |
 | ------------- | ---- | ------- | ----------- |
-| optionGroups | Object | N/A | Key-value pairs as `{name1: options1, name2: options2}`. `options` is an array of all options for this name. |
+| optionGroups | Object | N/A | array `[{key: value,...}, {key: value,...}, ...]`  |
 | valueGroups | Object | N/A | Selected value pairs as `{name1: value1, name2: value2}`. |
 | onChange(name, value) | Function | N/A | Callback called when user pick a new value. |
 | itemHeight | Number | 36 | Height of each item (that is each option). In `px`. |
 | height | Number | 216 | Height of the picker. In `px`. |
 
+改变optionGroups的格式为数组
+
+```js
+optionGroups = [
+	{
+	  name: 'title',
+	  text: ['Mr.(先生)', 'Mrs.(夫人)', 'Ms.(小姐)', 'Dr.'],
+	  value: ['Mr.', 'Mrs.', 'Ms.', 'Dr.'],
+	  label: '',
+	},
+	
+    {
+      name: 'firstName',
+      text: ['John(约翰)', 'Micheal(麦克)', 'Elizabeth(伊丽莎白)'],
+      value: ['John', 'Micheal', 'Elizabeth'],
+      label: '',
+    }
+]
+
+valueGroups = {
+	title: 'Mr.',
+	firstName: 'Micheal',
+}
+```
+```name``` 对应valueGroups里面的key<br/>
+```text``` 为要显示的文字<br/>
+```value``` 为实际要传的值<br/>
+```label``` 额外的文字，显示在text的后面<br/>
+
 ## Getting Started
 
-By design, React Mobile Picker is a [Controlled Component](https://facebook.github.io/react/docs/forms.html#controlled-components), which means the selected value of the rendered element will always reflect the `valueGroups`. Every time you want to change the selected item, just modify `valueGroups` values.
-
-Here is an example of how to integrate React Mobile Picker:
 
 ```javascript
 import React, {Component} from 'react';
@@ -61,11 +78,26 @@ class App extends Component {
         firstName: 'Micheal',
         secondName: 'Jordan'
       }, 
-      optionGroups: {
-        title: ['Mr.', 'Mrs.', 'Ms.', 'Dr.'],
-        firstName: ['John', 'Micheal', 'Elizabeth'],
-        secondName: ['Lennon', 'Jackson', 'Jordan', 'Legend', 'Taylor']
-      }
+      optionGroups: [
+        {
+          name: 'title',
+          text: ['Mr.(先生)', 'Mrs.(夫人)', 'Ms.(小姐)', 'Dr.'],
+          value: ['Mr.', 'Mrs.', 'Ms.', 'Dr.'],
+          label: '',
+        },
+        {
+          name: 'firstName',
+          text: ['John(约翰)', 'Micheal(麦克)', 'Elizabeth(伊丽莎白)'],
+          value: ['John', 'Micheal', 'Elizabeth'],
+          label: '',
+        },
+        {
+          name: 'secondName',
+          text: ['Lennon(列侬)', 'Jackson(杰克逊)', 'Jordan(乔丹)', 'Legend(莱亨德)', 'Taylor(泰勒)'],
+          value: ['Lennon', 'Jackson', 'Jordan', 'Legend', 'Taylor'],
+          label: '',
+        }
+      ]
     };
   }
 
@@ -98,7 +130,7 @@ class App extends Component {
 git clone this repo
 npm install
 npm start
-point your browser to http://localhost:8080
+point your browser to http://localhost:8000
 ```
 
 ## License
